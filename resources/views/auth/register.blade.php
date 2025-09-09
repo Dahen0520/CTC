@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Club Turístico Cooperativo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(30, 90, 168, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(104, 159, 56, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            animation: background-shift 15s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* Contenedor principal para los elementos de fondo */
+        .container {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1; /* Mantiene todo el fondo detrás del contenido */
+        }
+        
+        /* Curva azul superior derecha */
+        .blue-curve-top {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e5aa8 0%, #2d6cb5 100%);
+            border-radius: 0 0 0 100%;
+            z-index: 1;
+            animation: subtle-pulse 8s ease-in-out infinite;
+        }
+        
+        /* Curva verde inferior izquierda */
+        .green-curve-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50%;
+            height: 60%;
+            background: linear-gradient(45deg, #689f38 0%, #7cb342 100%);
+            border-radius: 0 100% 0 0;
+            z-index: 1;
+            animation: subtle-pulse 8s ease-in-out infinite 2s;
+        }
+        
+        /* Burbujas flotantes y partículas - Adaptados para ser de fondo */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 10px rgba(255, 255, 255, 0.3),
+                0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: bubble-rise linear infinite;
+            pointer-events: none;
+        }
+        
+        .bubble::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            width: 30%;
+            height: 30%;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+        
+        .bubble-yellow {
+            background: radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.8), rgba(255, 179, 0, 0.6));
+            box-shadow: 
+                inset 0 0 10px rgba(255, 255, 255, 0.3),
+                0 4px 15px rgba(255, 193, 7, 0.2);
+        }
+        
+        .bubble-green {
+            background: radial-gradient(circle at 30% 30%, rgba(104, 159, 56, 0.8), rgba(124, 179, 66, 0.6));
+            box-shadow: 
+                inset 0 0 10px rgba(255, 255, 255, 0.3),
+                0 4px 15px rgba(104, 159, 56, 0.2);
+        }
+        
+        .bubble-blue {
+            background: radial-gradient(circle at 30% 30%, rgba(30, 90, 168, 0.8), rgba(45, 108, 181, 0.6));
+            box-shadow: 
+                inset 0 0 10px rgba(255, 255, 255, 0.3),
+                0 4px 15px rgba(30, 90, 168, 0.2);
+        }
+        
+        /* Estilos de las burbujas */
+        .bubble-1 { width: 20px; height: 20px; left: 15%; bottom: -30px; animation-duration: 8s; animation-delay: 0s; }
+        .bubble-2 { width: 15px; height: 15px; left: 25%; bottom: -30px; animation-duration: 6s; animation-delay: 1s; }
+        .bubble-3 { width: 25px; height: 25px; right: 20%; bottom: -30px; animation-duration: 7s; animation-delay: 2s; }
+        .bubble-4 { width: 12px; height: 12px; right: 30%; bottom: -30px; animation-duration: 9s; animation-delay: 3s; }
+        .bubble-5 { width: 18px; height: 18px; left: 35%; bottom: -30px; animation-duration: 5s; animation-delay: 4s; }
+        .bubble-6 { width: 22px; height: 22px; right: 15%; bottom: -30px; animation-duration: 8.5s; animation-delay: 2.5s; }
+        .bubble-7 { width: 16px; height: 16px; left: 45%; bottom: -30px; animation-duration: 6.5s; animation-delay: 1.8s; }
+        .bubble-8 { width: 14px; height: 14px; right: 40%; bottom: -30px; animation-duration: 7.5s; animation-delay: 3.5s; }
+        .bubble-9 { width: 19px; height: 19px; left: 10%; bottom: -30px; animation-duration: 7.8s; animation-delay: 5s; }
+        .bubble-10 { width: 17px; height: 17px; right: 25%; bottom: -30px; animation-duration: 6.2s; animation-delay: 0.8s; }
+        .bubble-11 { width: 21px; height: 21px; left: 55%; bottom: -30px; animation-duration: 8.8s; animation-delay: 2.8s; }
+        .bubble-12 { width: 13px; height: 13px; right: 45%; bottom: -30px; animation-duration: 5.5s; animation-delay: 4.2s; }
+        
+        /* Partículas mágicas flotantes */
+        .magic-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .magic-particle-1 { top: 20%; left: 20%; animation: magic-float 12s ease-in-out infinite; }
+        .magic-particle-2 { top: 30%; right: 25%; animation: magic-float 10s ease-in-out infinite 2s; }
+        .magic-particle-3 { bottom: 25%; left: 30%; animation: magic-float 14s ease-in-out infinite 4s; }
+        .magic-particle-4 { bottom: 35%; right: 20%; animation: magic-float 8s ease-in-out infinite 1s; }
+        .magic-particle-5 { top: 60%; left: 15%; animation: magic-float 11s ease-in-out infinite 3s; }
+        .magic-particle-6 { top: 40%; right: 15%; animation: magic-float 9s ease-in-out infinite 5s; }
+
+        /* Ondas de energía */
+        .energy-wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            pointer-events: none;
+            animation: wave-pulse 6s ease-in-out infinite;
+        }
+        
+        .wave-1 { width: 500px; height: 500px; animation-delay: 0s; }
+        .wave-2 { width: 600px; height: 600px; animation-delay: 2s; border-color: rgba(104, 159, 56, 0.2); }
+        .wave-3 { width: 700px; height: 700px; animation-delay: 4s; border-color: rgba(30, 90, 168, 0.2); }
+        
+        /* Contenedor del formulario, adaptado para tener una caja de login */
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            animation: gentle-float 6s ease-in-out infinite;
+            z-index: 10;
+        }
+        
+        /* Estilos para los componentes de Laravel Breeze */
+        /* Nombre y logo del club */
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .main-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e5aa8;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #689f38;
+            font-weight: 500;
+        }
+
+        /* Estilos de los inputs */
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .text-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(104, 159, 56, 0.2);
+            border-radius: 12px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: #689f38;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 3px rgba(104, 159, 56, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .text-input::placeholder {
+            color: #999;
+        }
+        
+        .input-error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        
+        /* Estilos de los botones y enlaces */
+        .primary-button {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #1e5aa8 0%, #2d6cb5 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 90, 168, 0.3);
+        }
+        
+        .primary-button:hover {
+            background: linear-gradient(135deg, #2d6cb5 0%, #3d7bc5 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(30, 90, 168, 0.4);
+        }
+
+        .link-text {
+            color: #689f38;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .link-text:hover {
+            color: #7cb342;
+            text-decoration: underline;
+        }
+        
+        /* Estructura del formulario original de Laravel Breeze */
+        .form-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-top: 1rem;
+        }
+        
+        .flex-end {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+
+        /* Animaciones */
+        @keyframes background-shift {
+            0%, 100% { 
+                background: 
+                    radial-gradient(circle at 20% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(30, 90, 168, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 40%, rgba(104, 159, 56, 0.1) 0%, transparent 50%),
+                    linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            }
+            33% { 
+                background: 
+                    radial-gradient(circle at 80% 20%, rgba(104, 159, 56, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 20% 80%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 60% 60%, rgba(30, 90, 168, 0.1) 0%, transparent 50%),
+                    linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            }
+            66% { 
+                background: 
+                    radial-gradient(circle at 40% 80%, rgba(30, 90, 168, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 60% 20%, rgba(104, 159, 56, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 20% 40%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+                    linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            }
+        }
+        
+        @keyframes gentle-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes subtle-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+        
+        @keyframes bubble-rise {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-50vh) translateX(20px) scale(1.1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(15px) scale(0.3);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes magic-float {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) scale(1);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translateY(-30px) translateX(20px) scale(1.2);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-10px) translateX(-15px) scale(0.8);
+                opacity: 0.4;
+            }
+            75% { 
+                transform: translateY(-40px) translateX(10px) scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes wave-pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .main-title {
+                font-size: 24px;
+            }
+            
+            .text-input {
+                padding: 10px 14px;
+                font-size: 16px;
+            }
+            
+            .primary-button {
+                padding: 12px 18px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="blue-curve-top"></div>
+        
+        <div class="green-curve-bottom"></div>
+        
+        <div class="magic-particle magic-particle-1"></div>
+        <div class="magic-particle magic-particle-2"></div>
+        <div class="magic-particle magic-particle-3"></div>
+        <div class="magic-particle magic-particle-4"></div>
+        <div class="magic-particle magic-particle-5"></div>
+        <div class="magic-particle magic-particle-6"></div>
+        
+        <div class="energy-wave wave-1"></div>
+        <div class="energy-wave wave-2"></div>
+        <div class="energy-wave wave-3"></div>
+        
+        <div class="bubble bubble-1 bubble-yellow"></div>
+        <div class="bubble bubble-2 bubble-green"></div>
+        <div class="bubble bubble-3 bubble-blue"></div>
+        <div class="bubble bubble-4 bubble-yellow"></div>
+        <div class="bubble bubble-5 bubble-green"></div>
+        <div class="bubble bubble-6 bubble-blue"></div>
+        <div class="bubble bubble-7 bubble-yellow"></div>
+        <div class="bubble bubble-8 bubble-green"></div>
+        <div class="bubble bubble-9 bubble-blue"></div>
+        <div class="bubble bubble-10 bubble-yellow"></div>
+        <div class="bubble bubble-11 bubble-green"></div>
+        <div class="bubble bubble-12 bubble-blue"></div>
+    </div>
+
+    <div class="auth-card">
+        <div class="logo-container">
+            <img src="https://www.chorotega.hn/img/logo-color.svg" alt="Logo" class="logo">
+            <h1 class="main-title">Registro</h1>
+            <p class="subtitle">CLUB TURÍSTICO COOPERATIVO</p>
+        </div>
+
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+
+            <div>
+                <label for="name" class="input-label">Nombre</label>
+                <input id="name" class="block mt-1 w-full text-input" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" />
+                </div>
+
+            <div class="mt-4">
+                <label for="email" class="input-label">Correo Electrónico</label>
+                <input id="email" class="block mt-1 w-full text-input" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" />
+                </div>
+
+            <div class="mt-4">
+                <label for="password" class="input-label">Contraseña</label>
+                <input id="password" class="block mt-1 w-full text-input" type="password" name="password" required autocomplete="new-password" />
+                </div>
+
+            <div class="mt-4">
+                <label for="password_confirmation" class="input-label">Confirmar Contraseña</label>
+                <input id="password_confirmation" class="block mt-1 w-full text-input" type="password" name="password_confirmation" required autocomplete="new-password" />
+                </div>
+
+            <div class="flex-end">
+                <a class="link-text" href="{{ route('login') }}">
+                    ¿Ya estás registrado?
+                </a>
+
+                <button type="submit" class="primary-button">
+                    Registrar
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
