@@ -203,32 +203,6 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const nombreInput = document.getElementById('nombre');
-            
-            // Auto-focus en el campo de nombre
-            nombreInput.focus();
-            
-            // Validación en tiempo real (opcional, pero útil)
-            nombreInput.addEventListener('input', function() {
-                const value = this.value.trim();
-                const maxLength = 100;
-                
-                const remaining = maxLength - value.length;
-                // Busca el párrafo de ayuda por su relación con el input, una forma más robusta
-                const helperText = this.parentElement.nextElementSibling;
-                
-                if (helperText && helperText.tagName.toLowerCase() === 'p' && helperText.textContent.includes('Máximo')) {
-                    if (remaining < 20) {
-                        helperText.textContent = `${remaining} caracteres restantes`;
-                        helperText.className = remaining < 10 ? 'text-red-500 text-xs' : 'text-yellow-600 text-xs';
-                    } else {
-                        helperText.textContent = 'Máximo 100 caracteres';
-                        helperText.className = 'text-gray-500 text-xs';
-                    }
-                }
-            });
-        });
-    </script>
+    <script src="{{ asset('js/tipo_visitas/create.js') }}"></script>
+
 </x-app-layout>

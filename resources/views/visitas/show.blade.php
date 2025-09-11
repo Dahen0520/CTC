@@ -67,11 +67,11 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200 mt-6">
-                    <a href="{{ route('visitas.edit', $visita) }}" 
+                    <!--<a href="{{ route('visitas.edit', $visita) }}" 
                        class="flex-1 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-indigo-600 hover:to-indigo-500 transform hover:scale-105 transition duration-200 shadow-lg flex items-center justify-center">
                         <i class="fas fa-edit mr-2"></i>
                         Editar
-                    </a>
+                    </a>-->
                     
                     <a href="{{ route('visitas.index') }}" 
                        class="flex-1 sm:flex-initial bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-200 flex items-center justify-center">

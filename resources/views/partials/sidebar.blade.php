@@ -16,18 +16,18 @@ class="h-12 lg:h-14 mt-4 mb-2 max-w-full">
     </x-nav-link>
 
     {{-- Búsqueda de Afiliado --}}
-    <x-nav-link :href="route('busqueda.index')" :active="request()->routeIs('busqueda.index')"
+    <!--<x-nav-link :href="route('busqueda.index')" :active="request()->routeIs('busqueda.index')"
         class="py-3 px-4 rounded hover:bg-chorotega-blue-light hover:text-yellow-400 transition duration-200 ease-in-out text-white flex items-center text-sm lg:text-base">
         <i class="fas fa-search mr-3 text-base"></i>
         {{ __('Búsqueda de Afiliado') }}
-    </x-nav-link>
+    </x-nav-link>-->
 
     {{-- Gestión de Motivos --}}
-    <x-nav-link :href="route('motivos.index')" :active="request()->routeIs('motivos.index')"
+    <!--<x-nav-link :href="route('motivos.index')" :active="request()->routeIs('motivos.index')"
         class="py-3 px-4 rounded hover:bg-chorotega-blue-light hover:text-yellow-400 transition duration-200 ease-in-out text-white flex items-center text-sm lg:text-base">
         <i class="fas fa-list-alt mr-3 text-base"></i>
         {{ __('Gestión de Motivos') }}
-    </x-nav-link>
+    </x-nav-link>-->
 
     {{-- Gestión de Tipos de Visita --}}
     <x-nav-link :href="route('tipo-visitas.index')" :active="request()->routeIs('tipo-visitas.index')"

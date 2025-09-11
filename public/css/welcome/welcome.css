@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(30, 90, 168, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(104, 159, 56, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    animation: background-shift 15s ease-in-out infinite;
+    cursor: default;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Curva azul superior derecha */
+.blue-curve-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e5aa8 0%, #2d6cb5 100%);
+    border-radius: 0 0 0 100%;
+    z-index: 1;
+    animation: subtle-pulse 8s ease-in-out infinite;
+}
+
+/* Curva verde inferior izquierda */
+.green-curve-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 60%;
+    background: linear-gradient(45deg, #689f38 0%, #7cb342 100%);
+    border-radius: 0 100% 0 0;
+    z-index: 1;
+    animation: subtle-pulse 8s ease-in-out infinite 2s;
+}
+
+/* Círculo blanco central */
+.white-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 450px;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 1) 0%, rgba(248, 249, 250, 0.95) 100%);
+    border-radius: 50%;
+    z-index: 3;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    animation: gentle-float 6s ease-in-out infinite, circle-glow 8s ease-in-out infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.white-circle:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.15),
+        0 0 40px rgba(255, 193, 7, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.9),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Burbujas flotantes */
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: 
+        inset 0 0 10px rgba(255, 255, 255, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: bubble-rise linear infinite;
+}
+
+.bubble::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    width: 30%;
+    height: 30%;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    filter: blur(2px);
+}
+
+.bubble-yellow {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.8), rgba(255, 179, 0, 0.6));
+    box-shadow: 
+        inset 0 0 10px rgba(255, 255, 255, 0.3),
+        0 4px 15px rgba(255, 193, 7, 0.2);
+}
+
+.bubble-green {
+    background: radial-gradient(circle at 30% 30%, rgba(104, 159, 56, 0.8), rgba(124, 179, 66, 0.6));
+    box-shadow: 
+        inset 0 0 10px rgba(255, 255, 255, 0.3),
+        0 4px 15px rgba(104, 159, 56, 0.2);
+}
+
+.bubble-blue {
+    background: radial-gradient(circle at 30% 30%, rgba(30, 90, 168, 0.8), rgba(45, 108, 181, 0.6));
+    box-shadow: 
+        inset 0 0 10px rgba(255, 255, 255, 0.3),
+        0 4px 15px rgba(30, 90, 168, 0.2);
+}
+
+.bubble-1 { width: 20px; height: 20px; left: 15%; bottom: -30px; animation-duration: 8s; animation-delay: 0s; }
+.bubble-2 { width: 15px; height: 15px; left: 25%; bottom: -30px; animation-duration: 6s; animation-delay: 1s; }
+.bubble-3 { width: 25px; height: 25px; right: 20%; bottom: -30px; animation-duration: 7s; animation-delay: 2s; }
+.bubble-4 { width: 12px; height: 12px; right: 30%; bottom: -30px; animation-duration: 9s; animation-delay: 3s; }
+.bubble-5 { width: 18px; height: 18px; left: 35%; bottom: -30px; animation-duration: 5s; animation-delay: 4s; }
+.bubble-6 { width: 22px; height: 22px; right: 15%; bottom: -30px; animation-duration: 8.5s; animation-delay: 2.5s; }
+.bubble-7 { width: 16px; height: 16px; left: 45%; bottom: -30px; animation-duration: 6.5s; animation-delay: 1.8s; }
+.bubble-8 { width: 14px; height: 14px; right: 40%; bottom: -30px; animation-duration: 7.5s; animation-delay: 3.5s; }
+.bubble-9 { width: 19px; height: 19px; left: 10%; bottom: -30px; animation-duration: 7.8s; animation-delay: 5s; }
+.bubble-10 { width: 17px; height: 17px; right: 25%; bottom: -30px; animation-duration: 6.2s; animation-delay: 0.8s; }
+.bubble-11 { width: 21px; height: 21px; left: 55%; bottom: -30px; animation-duration: 8.8s; animation-delay: 2.8s; }
+.bubble-12 { width: 13px; height: 13px; right: 45%; bottom: -30px; animation-duration: 5.5s; animation-delay: 4.2s; }
+
+/* Partículas mágicas flotantes */
+.magic-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.magic-particle-1 { top: 20%; left: 20%; animation: magic-float 12s ease-in-out infinite; }
+.magic-particle-2 { top: 30%; right: 25%; animation: magic-float 10s ease-in-out infinite 2s; }
+.magic-particle-3 { bottom: 25%; left: 30%; animation: magic-float 14s ease-in-out infinite 4s; }
+.magic-particle-4 { bottom: 35%; right: 20%; animation: magic-float 8s ease-in-out infinite 1s; }
+.magic-particle-5 { top: 60%; left: 15%; animation: magic-float 11s ease-in-out infinite 3s; }
+.magic-particle-6 { top: 40%; right: 15%; animation: magic-float 9s ease-in-out infinite 5s; }
+
+/* Ondas de energía */
+.energy-wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 193, 7, 0.3);
+    pointer-events: none;
+    animation: wave-pulse 6s ease-in-out infinite;
+}
+
+.wave-1 { width: 500px; height: 500px; animation-delay: 0s; }
+.wave-2 { width: 600px; height: 600px; animation-delay: 2s; border-color: rgba(104, 159, 56, 0.2); }
+.wave-3 { width: 700px; height: 700px; animation-delay: 4s; border-color: rgba(30, 90, 168, 0.2); }
+
+/* Logo */
+.logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    animation: logo-breath 4s ease-in-out infinite;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.logo:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Texto */
+.title-text {
+    text-align: center;
+    line-height: 1.1;
+}
+
+.club-turistico, .cooperativo {
+    cursor: pointer;
+}
+
+.club-turistico {
+    font-size: 32px;
+    font-weight: 600;
+    color: #689f38;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    animation: text-glow 3s ease-in-out infinite;
+    transition: color 0.3s ease;
+}
+
+.cooperativo {
+    font-size: 42px;
+    font-weight: 800;
+    color: #1e5aa8;
+    letter-spacing: 2px;
+    animation: text-glow 3s ease-in-out infinite 1s;
+    transition: color 0.3s ease;
+}
+
+.club-turistico:hover {
+    color: #7cb342;
+}
+
+.cooperativo:hover {
+    color: #2d6cb5;
+}
+
+/* Header con botones de navegación */
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 40px;
+    z-index: 10;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-login {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1e5aa8;
+    border: 2px solid #1e5aa8;
+    backdrop-filter: blur(10px);
+    font-weight: 600;
+}
+
+.btn-login:hover {
+    background: #1e5aa8;
+    border-color: #1e5aa8;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(30, 90, 168, 0.4);
+}
+
+.btn-register {
+    background: linear-gradient(135deg, #689f38 0%, #7cb342 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(104, 159, 56, 0.4);
+    border: 2px solid #689f38;
+    font-weight: 600;
+}
+
+.btn-register:hover {
+    background: linear-gradient(135deg, #7cb342 0%, #8bc34a 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(104, 159, 56, 0.5);
+    border-color: #7cb342;
+}
+
+/* Efectos adicionales */
+.white-circle::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, #ffc107, #1e5aa8, #689f38);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.1;
+    animation: rainbow-rotate 10s linear infinite;
+}
+
+/* Animaciones */
+@keyframes gentle-float {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+    50% { transform: translate(-50%, -50%) translateY(-8px); }
+}
+@keyframes subtle-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.9; }
+}
+@keyframes bubble-rise {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    10% { opacity: 0.8; }
+    50% { transform: translateY(-50vh) translateX(20px) scale(1.1); opacity: 0.6; }
+    80% { transform: translateY(-80vh) translateX(-10px) scale(0.8); opacity: 0.3; }
+    100% { transform: translateY(-100vh) translateX(15px) scale(0.3); opacity: 0; }
+}
+@keyframes logo-breath {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+@keyframes text-glow {
+    0%, 100% { text-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
+    50% { text-shadow: 0 0 20px rgba(104, 159, 56, 0.3), 0 0 30px rgba(104, 159, 56, 0.1); }
+}
+@keyframes rainbow-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes background-shift {
+    0%, 100% { background: radial-gradient(circle at 20% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(30, 90, 168, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(104, 159, 56, 0.1) 0%, transparent 50%), linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    33% { background: radial-gradient(circle at 80% 20%, rgba(104, 159, 56, 0.1) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(255, 193, 7, 0.1) 0%, transparent 50%), radial-gradient(circle at 60% 60%, rgba(30, 90, 168, 0.1) 0%, transparent 50%), linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    66% { background: radial-gradient(circle at 40% 80%, rgba(30, 90, 168, 0.1) 0%, transparent 50%), radial-gradient(circle at 60% 20%, rgba(104, 159, 56, 0.1) 0%, transparent 50%), radial-gradient(circle at 20% 40%, rgba(255, 193, 7, 0.1) 0%, transparent 50%), linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+}
+@keyframes magic-float {
+    0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.6; }
+    25% { transform: translateY(-30px) translateX(20px) scale(1.2); opacity: 1; }
+    50% { transform: translateY(-10px) translateX(-15px) scale(0.8); opacity: 0.4; }
+    75% { transform: translateY(-40px) translateX(10px) scale(1.1); opacity: 0.8; }
+}
+@keyframes wave-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+}
+@keyframes circle-glow {
+    0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.9); }
+    50% { box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15), 0 0 30px rgba(255, 193, 7, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.9), inset 0 1px 0 rgba(255, 255, 255, 1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .white-circle { width: 350px; height: 350px; padding: 30px; }
+    .club-turistico { font-size: 24px; }
+    .cooperativo { font-size: 32px; }
+    .logo { width: 90px; margin-bottom: 20px; }
+    .header { padding: 20px 24px; }
+    .nav-container { gap: 12px; }
+    .nav-button { padding: 12px 24px; font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+    .white-circle { width: 280px; height: 280px; padding: 20px; }
+    .club-turistico { font-size: 20px; }
+    .cooperativo { font-size: 28px; }
+    .logo { width: 70px; margin-bottom: 15px; }
+    .nav-container { gap: 10px; }
+    .nav-button { padding: 10px 20px; font-size: 13px; min-width: 100px; text-align: center; }
+}

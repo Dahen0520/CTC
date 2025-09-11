@@ -184,14 +184,14 @@
         }
         
         .logo {
-            width: 80px;
+            width: 200px;
             height: auto;
             margin-bottom: 15px;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         .main-title {
-            font-size: 28px;
+            font-size: 20px;
             font-weight: 700;
             color: #1e5aa8;
             margin-bottom: 5px;
@@ -438,9 +438,8 @@
 
     <div class="auth-card">
         <div class="logo-container">
-            <img src="https://www.chorotega.hn/img/logo-color.svg" alt="Logo" class="logo">
+            <img src="{{ asset('assets/imgs/ctc.png') }}" alt="Logo" class="logo">
             <h1 class="main-title">Registro</h1>
-            <p class="subtitle">CLUB TURÍSTICO COOPERATIVO</p>
         </div>
 
         <form method="POST" action="{{ route('register') }}">
