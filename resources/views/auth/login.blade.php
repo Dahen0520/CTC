@@ -103,13 +103,13 @@
                 </button>
 
                 @if (Route::has('password.request'))
-                    <a class="forgot-password" href="{{ route('password.request') }}">
-                        ¿Olvidaste tu contraseña?
+                    <a class="forgot-password" href="/">
+                        Regresar
                     </a>
                 @endif
 
-                <a class="btn-secondary" href="{{ route('register') }}">
-                    ¿No tienes cuenta? Regístrate aquí
+                <a class="btn-secondary" href="/">
+                    ¿No tienes cuenta? habla con un admin
                 </a>
             </div>
         </form>

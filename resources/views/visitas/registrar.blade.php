@@ -8,6 +8,7 @@
          data-tipos-visita='{{ json_encode($tiposVisita->keyBy('id')) }}'
          data-verificar-url="{{ route('afiliados.verificar') }}">
 
+        @can('create', App\Models\Visita::class)
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
             <div class="bg-gradient-to-br from-chorotega-blue via-blue-600 to-chorotega-blue-light p-6 sm:p-8 relative overflow-hidden">
                 <div class="absolute inset-0 bg-black bg-opacity-10"></div>
@@ -129,6 +130,21 @@
                 </form>
             </div>
         </div>
+        @else
+        <div class="bg-white rounded-2xl shadow-xl border border-red-200 overflow-hidden">
+            <div class="p-6 sm:p-8">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-lock text-red-500 text-3xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <h2 class="text-xl font-bold text-red-800">Acceso Denegado</h2>
+                        <p class="text-gray-600 text-sm sm:text-base mt-1">No tienes los permisos necesarios para registrar nuevas visitas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcan
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

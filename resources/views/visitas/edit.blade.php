@@ -51,6 +51,20 @@
                     </ul>
                 </div>
                 @endif
+                
+                @cannot('update', $visita)
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lock text-yellow-600"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Modo de solo lectura</h3>
+                            <p class="text-sm text-yellow-700 mt-1">No tienes permiso para editar este registro.</p>
+                        </div>
+                    </div>
+                </div>
+                @endcannot
 
                 <form method="POST" action="{{ route('visitas.update', $visita) }}" class="space-y-6">
                     @csrf
@@ -62,7 +76,8 @@
                             Tipo de Visita
                         </label>
                         <select id="tipo_visita_id" name="tipo_visita_id" required 
-                                class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('tipo_visita_id') border-red-300 ring-2 ring-red-200 @enderror">
+                                @cannot('update', $visita) disabled @endcannot
+                                class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('tipo_visita_id') border-red-300 ring-2 ring-red-200 @enderror disabled:bg-gray-100">
                             <option value="">Selecciona un tipo de visita</option>
                             @foreach($tiposVisita as $tipo)
                                 <option value="{{ $tipo->id }}" {{ old('tipo_visita_id', $visita->tipo_visita_id) == $tipo->id ? 'selected' : '' }}>
@@ -84,7 +99,8 @@
                             Fecha
                         </label>
                         <input type="date" id="fecha" name="fecha" value="{{ old('fecha', $visita->fecha) }}" required
-                            class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('fecha') border-red-300 ring-2 ring-red-200 @enderror">
+                            @cannot('update', $visita) disabled @endcannot
+                            class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('fecha') border-red-300 ring-2 ring-red-200 @enderror disabled:bg-gray-100">
                         @error('fecha')
                         <p class="text-red-600 text-sm flex items-center mt-1">
                             <i class="fas fa-exclamation-circle mr-1"></i>
@@ -99,7 +115,8 @@
                             Número de Identidad (Opcional)
                         </label>
                         <input type="text" id="numero_identidad" name="numero_identidad" value="{{ old('numero_identidad', $visita->numero_identidad) }}"
-                            class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('numero_identidad') border-red-300 ring-2 ring-red-200 @enderror">
+                            @cannot('update', $visita) disabled @endcannot
+                            class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('numero_identidad') border-red-300 ring-2 ring-red-200 @enderror disabled:bg-gray-100">
                         @error('numero_identidad')
                         <p class="text-red-600 text-sm flex items-center mt-1">
                             <i class="fas fa-exclamation-circle mr-1"></i>
@@ -123,11 +140,13 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+                        @can('update', $visita)
                         <button type="submit" 
                                 class="flex-1 bg-gradient-to-r from-chorotega-blue to-chorotega-blue-light text-white px-6 py-3 rounded-lg font-semibold hover:from-chorotega-blue-light hover:to-chorotega-blue transform hover:scale-105 transition duration-200 shadow-lg flex items-center justify-center">
                             <i class="fas fa-save mr-2"></i>
                             Actualizar Visita
                         </button>
+                        @endcan
                         
                         <a href="{{ route('visitas.index') }}" 
                            class="flex-1 sm:flex-initial bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-200 flex items-center justify-center">

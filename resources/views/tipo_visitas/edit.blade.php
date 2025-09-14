@@ -4,7 +4,6 @@
     </x-slot>
 
     <div class="max-w-2xl mx-auto space-y-6">
-        {{-- Breadcrumb y navegación --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <nav class="flex items-center space-x-2 text-sm">
                 <a href="{{ route('tipo-visitas.index') }}" class="text-chorotega-blue hover:text-chorotega-blue-light transition duration-200 flex items-center">
@@ -19,9 +18,7 @@
             </nav>
         </div>
 
-        {{-- Formulario principal --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            {{-- Header del formulario --}}
             <div class="bg-gradient-to-r from-chorotega-blue to-chorotega-blue-light p-6">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -36,9 +33,7 @@
                 </div>
             </div>
 
-            {{-- Contenido del formulario --}}
             <div class="p-6">
-                {{-- Mensajes de error --}}
                 @if ($errors->any())
                 <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
                     <div class="flex items-center mb-3">
@@ -57,11 +52,24 @@
                 </div>
                 @endif
 
+                @cannot('update', $tipoVisita)
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lock text-yellow-600"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Modo de solo lectura</h3>
+                            <p class="text-sm text-yellow-700 mt-1">No tienes permiso para editar este registro.</p>
+                        </div>
+                    </div>
+                </div>
+                @endcannot
+
                 <form method="POST" action="{{ route('tipo-visitas.update', $tipoVisita) }}" class="space-y-6">
                     @csrf
                     @method('PUT')
                     
-                    {{-- Campo de nombre --}}
                     <div class="space-y-2">
                         <label for="nombre" class="block text-sm font-medium text-gray-700">
                             <i class="fas fa-tag text-chorotega-blue mr-1"></i>
@@ -73,7 +81,8 @@
                                    name="nombre" 
                                    value="{{ old('nombre', $tipoVisita->nombre) }}" 
                                    required 
-                                   class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('nombre') border-red-300 ring-2 ring-red-200 @enderror"
+                                   @cannot('update', $tipoVisita) disabled @endcannot
+                                   class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('nombre') border-red-300 ring-2 ring-red-200 @enderror disabled:bg-gray-100"
                                    placeholder="Ej: Visita médica, Visita de trabajo..."
                                    maxlength="100">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -89,7 +98,6 @@
                         <p class="text-gray-500 text-xs">Máximo 100 caracteres</p>
                     </div>
 
-                    {{-- Campo de precio --}}
                     <div class="space-y-2">
                         <label for="precio" class="block text-sm font-medium text-gray-700">
                             <i class="fas fa-dollar-sign text-chorotega-blue mr-1"></i>
@@ -102,7 +110,8 @@
                                    value="{{ old('precio', $tipoVisita->precio) }}" 
                                    required 
                                    step="0.01"
-                                   class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('precio') border-red-300 ring-2 ring-red-200 @enderror"
+                                   @cannot('update', $tipoVisita) disabled @endcannot
+                                   class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chorotega-blue focus:border-transparent transition duration-200 @error('precio') border-red-300 ring-2 ring-red-200 @enderror disabled:bg-gray-100"
                                    placeholder="Ej: 50.00">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-dollar-sign text-gray-400"></i>
@@ -117,7 +126,6 @@
                         <p class="text-gray-500 text-xs">Ingresa el precio en Lempiras, con hasta dos decimales.</p>
                     </div>
 
-                    {{-- Campo de estado --}}
                     <div class="space-y-2">
                         <label class="block text-sm font-medium text-gray-700">
                             <i class="fas fa-toggle-on text-chorotega-blue mr-1"></i>
@@ -129,6 +137,7 @@
                                        id="estado_activo" 
                                        name="estado" 
                                        value="activo" 
+                                       @cannot('update', $tipoVisita) disabled @endcannot
                                        class="h-4 w-4 text-chorotega-blue focus:ring-chorotega-blue-light border-gray-300"
                                        {{ old('estado', $tipoVisita->estado) == 'activo' ? 'checked' : '' }}>
                                 <span class="ml-2 text-sm text-gray-700">Activo</span>
@@ -138,6 +147,7 @@
                                        id="estado_inactivo" 
                                        name="estado" 
                                        value="inactivo" 
+                                       @cannot('update', $tipoVisita) disabled @endcannot
                                        class="h-4 w-4 text-chorotega-blue focus:ring-chorotega-blue-light border-gray-300"
                                        {{ old('estado', $tipoVisita->estado) == 'inactivo' ? 'checked' : '' }}>
                                 <span class="ml-2 text-sm text-gray-700">Inactivo</span>
@@ -151,7 +161,6 @@
                         @enderror
                     </div>
 
-                    {{-- Información adicional --}}
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
@@ -166,13 +175,14 @@
                         </div>
                     </div>
 
-                    {{-- Botones de acción --}}
                     <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+                        @can('update', $tipoVisita)
                         <button type="submit" 
                                 class="flex-1 bg-gradient-to-r from-chorotega-blue to-chorotega-blue-light text-white px-6 py-3 rounded-lg font-semibold hover:from-chorotega-blue-light hover:to-chorotega-blue transform hover:scale-105 transition duration-200 shadow-lg flex items-center justify-center">
                             <i class="fas fa-save mr-2"></i>
                             Actualizar Tipo de Visita
                         </button>
+                        @endcan
                         
                         <a href="{{ route('tipo-visitas.index') }}" 
                            class="flex-1 sm:flex-initial bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-200 flex items-center justify-center">
@@ -184,7 +194,6 @@
             </div>
         </div>
 
-        {{-- Tips y ayuda --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
                 <i class="fas fa-lightbulb text-chorotega-yellow mr-2"></i>

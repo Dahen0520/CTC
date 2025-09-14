@@ -1,10 +1,6 @@
 @foreach ($visitas as $visita)
     <tr id="visita-row-{{ $visita->id }}" class="hover:bg-gray-50">
-        <!--<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-            {{ $visita->id }}
-        </td>-->
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
-            {{-- Esta fórmula asegura que la numeración sea correcta incluso con paginación --}}
             {{ ($visitas->firstItem() + $loop->index) }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -19,13 +15,18 @@
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
             {{ $visita->numero_identidad ?? 'N/A' }}
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium"> {{-- Añadido text-center aquí --}}
+        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+            @can('view', $visita)
             <a href="{{ route('visitas.show', $visita) }}" title="Ver" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-200 mr-2">
                 <i class="fas fa-eye"></i>
             </a>
-            <!--<a href="{{ route('visitas.edit', $visita) }}" title="Editar" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200 mr-2">
+            @endcan
+            <!--@can('update', $visita)
+            <a href="{{ route('visitas.edit', $visita) }}" title="Editar" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200 mr-2">
                 <i class="fas fa-edit"></i>
-            </a>-->
+            </a>
+            @endcan-->
+            @can('delete', $visita)
             <form action="{{ route('visitas.destroy', $visita) }}" method="POST" class="inline delete-form">
                 @csrf
                 @method('DELETE')
@@ -33,6 +34,7 @@
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </form>
+            @endcan
         </td>
     </tr>
 @endforeach

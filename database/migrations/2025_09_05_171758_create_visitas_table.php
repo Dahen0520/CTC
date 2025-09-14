@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tipo_visita_id')->constrained('tipo_visitas')->onDelete('cascade');
             
-            // Columna para guardar el precio de la visita
-            // '8, 2' significa que puede guardar hasta 8 dígitos en total, con 2 decimales. Ej: 123456.78
             $table->decimal('precio', 8, 2);
 
             $table->date('fecha');

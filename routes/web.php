@@ -5,7 +5,9 @@ use App\Http\Controllers\BusquedaController;
 use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\TipoVisitaController;
 use App\Http\Controllers\VisitaController;
-use App\Http\Controllers\AfiliadoController; 
+use App\Http\Controllers\AfiliadoController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController; 
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,8 +37,14 @@ Route::get('/dashboard', function () {
         Route::get('visitas/registrar', [VisitaController::class, 'registrar'])->name('visitas.registrar');
         Route::post('afiliados/verificar-dni', [AfiliadoController::class, 'verificarDni'])->name('afiliados.verificar');
 
-        // --- Ruta de recurso para visitas (al final) ---
+        // --- Ruta de recurso para visitas ---
         Route::resource('visitas', VisitaController::class);
+});
+
+// --- GRUPO DE RUTAS DE ADMINISTRACIÓN ---
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('/roles', RoleController::class);
+    Route::resource('/users', UserController::class); 
 });
 
 require __DIR__.'/auth.php';

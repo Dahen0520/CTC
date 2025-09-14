@@ -15,9 +15,9 @@
                 <a href="/login" class="nav-button btn-login">
                     Iniciar Sesión
                 </a>
-                <a href="/register" class="nav-button btn-register">
+                <!--<a href="/register" class="nav-button btn-register">
                     Registrar
-                </a>
+                </a>-->
             </nav>
         </header>
         

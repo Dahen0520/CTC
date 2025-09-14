@@ -10,11 +10,11 @@ use Carbon\Carbon;
 
 class VisitaController extends Controller
 {
-    /**
-     * Muestra una lista de todas las visitas con paginación y búsqueda.
-     */
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Visita::class);
+
         $query = Visita::with('tipoVisita');
 
         // Filtro de búsqueda general
@@ -32,7 +32,6 @@ class VisitaController extends Controller
             $query->where('tipo_visita_id', $request->tipo_visita_id);
         }
 
-        // Lógica de filtro de fecha mejorada
         $fechaInicio = $request->input('fecha_inicio');
         $fechaFin = $request->input('fecha_fin');
 
@@ -49,7 +48,7 @@ class VisitaController extends Controller
 
 
         $visitas = $query->latest()->paginate(15)->appends($request->query());
-        $tiposVisita = TipoVisita::where('estado', 'activo')->get(); // Para el dropdown de filtros
+        $tiposVisita = TipoVisita::where('estado', 'activo')->get(); 
 
         if ($request->ajax()) {
             return response()->json([
@@ -60,29 +59,26 @@ class VisitaController extends Controller
         return view('visitas.index', compact('visitas', 'tiposVisita'));
     }
 
-    /**
-     * Muestra el formulario para crear una visita, con un formulario sencillo.
-     */
     public function create()
     {
+        $this->authorize('create', Visita::class);
+
         $tiposVisita = TipoVisita::where('estado', 'activo')->get();
         return view('visitas.create', compact('tiposVisita'));
     }
 
-    /**
-     * Muestra el formulario para registrar una nueva visita, con la lógica del modal.
-     */
     public function registrar()
     {
+        $this->authorize('create', Visita::class);
+
         $tiposVisita = TipoVisita::where('estado', 'activo')->get();
         return view('visitas.registrar', compact('tiposVisita'));
     }
 
-    /**
-     * Almacena una nueva visita en la base de datos.
-     */
-public function store(Request $request)
+    public function store(Request $request)
     {
+        $this->authorize('create', Visita::class);
+
         $rules = [
             'visitas' => 'required|array',
             'visitas.*' => 'integer|min:0',
@@ -109,7 +105,7 @@ public function store(Request $request)
                         }
                     }
 
-                    if ($tipoVisita) { // Asegurarse que el tipo de visita existe
+                    if ($tipoVisita) { 
                         Visita::create([
                             'tipo_visita_id' => $tipoVisitaId,
                             'fecha' => Carbon::now(),
@@ -121,37 +117,32 @@ public function store(Request $request)
             }
         }
         
-        // Si la solicitud es AJAX, devuelve una respuesta JSON de éxito.
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 'Visita(s) registrada(s) exitosamente.']);
         }
         
-        // Si no es AJAX, redirige como antes.
         return redirect()->route('visitas.registrar')->with('success', 'Visita(s) registrada(s) exitosamente.');
     }
 
-    /**
-     * Muestra los detalles de una visita específica.
-     */
     public function show(Visita $visita)
     {
+        $this->authorize('view', $visita);
+
         return view('visitas.show', compact('visita'));
     }
 
-    /**
-     * Muestra el formulario para editar una visita existente.
-     */
     public function edit(Visita $visita)
     {
+        $this->authorize('update', $visita);
+
         $tiposVisita = TipoVisita::all();
         return view('visitas.edit', compact('visita', 'tiposVisita'));
     }
 
-    /**
-     * Actualiza una visita en la base de datos.
-     */
     public function update(Request $request, Visita $visita)
     {
+        $this->authorize('update', $visita);
+
         $request->validate([
             'tipo_visita_id' => 'required|exists:tipo_visitas,id',
             'fecha' => 'required|date',
@@ -162,11 +153,10 @@ public function store(Request $request)
         return redirect()->route('visitas.index')->with('success', 'Visita actualizada exitosamente.');
     }
 
-    /**
-     * Elimina una visita de la base de datos.
-     */
     public function destroy(Visita $visita)
     {
+        $this->authorize('delete', $visita);
+
         $visita->delete();
         if (request()->ajax()) {
             return response()->json(['success' => true, 'message' => 'Visita eliminada exitosamente.']);
@@ -174,6 +164,3 @@ public function store(Request $request)
         return redirect()->route('visitas.index')->with('success', 'Visita eliminada exitosamente.');
     }
 }
-
-
-

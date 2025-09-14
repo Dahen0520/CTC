@@ -28,7 +28,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // 👇 CAMBIO DEFINITIVO: Usa un redirect directo a la ruta.
         return redirect()->route('visitas.registrar');
     }
 

@@ -15,11 +15,13 @@
                                 <p class="text-sm text-blue-100 mt-1">Administra los registros de visita del sistema</p>
                             </div>
                         </div>
+                        @can('create', App\Models\Visita::class)
                         <a href="{{ route('visitas.registrar') }}" 
                            class="w-full md:w-auto inline-flex items-center justify-center px-5 py-3 bg-chorotega-yellow text-chorotega-blue font-semibold rounded-lg hover:bg-yellow-400 transform hover:scale-105 transition duration-200 shadow-lg whitespace-nowrap">
                             <i class="fas fa-plus mr-2"></i>
                             Nueva Visita
                         </a>
+                        @endcan
                     </div>
 
                     <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
@@ -143,11 +145,13 @@
                         </div>
                         <h3 class="text-lg font-medium text-gray-900 mb-2">No se encontraron visitas</h3>
                         <p class="text-gray-500 mb-6">Prueba con otros filtros o registra una nueva visita.</p>
+                        @can('create', App\Models\Visita::class)
                         <a href="{{ route('visitas.registrar') }}" 
                            class="inline-flex items-center px-4 py-2 bg-chorotega-blue text-white rounded-lg hover:bg-chorotega-blue-light transition duration-200">
                             <i class="fas fa-plus mr-2"></i>
                             Registrar Primera Visita
                         </a>
+                        @endcan
                     </div>
                 </div>
             </div>

@@ -4,7 +4,6 @@
     </x-slot>
 
     <div class="max-w-2xl mx-auto space-y-6">
-        {{-- Breadcrumb y navegación --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <nav class="flex items-center space-x-2 text-sm">
                 <a href="{{ route('tipo-visitas.index') }}" class="text-chorotega-blue hover:text-chorotega-blue-light transition duration-200 flex items-center">
@@ -19,9 +18,8 @@
             </nav>
         </div>
 
-        {{-- Formulario principal --}}
+        @can('create', App\Models\TipoVisita::class)
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            {{-- Header del formulario --}}
             <div class="bg-gradient-to-r from-chorotega-blue to-chorotega-blue-light p-6">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -36,9 +34,7 @@
                 </div>
             </div>
 
-            {{-- Contenido del formulario --}}
             <div class="p-6">
-                {{-- Mensajes de error --}}
                 @if ($errors->any())
                 <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
                     <div class="flex items-center mb-3">
@@ -60,7 +56,6 @@
                 <form method="POST" action="{{ route('tipo-visitas.store') }}" class="space-y-6">
                     @csrf
                     
-                    {{-- Campo de nombre --}}
                     <div class="space-y-2">
                         <label for="nombre" class="block text-sm font-medium text-gray-700">
                             <i class="fas fa-tag text-chorotega-blue mr-1"></i>
@@ -88,7 +83,6 @@
                         <p class="text-gray-500 text-xs">Máximo 100 caracteres</p>
                     </div>
 
-                    {{-- Campo de precio --}}
                     <div class="space-y-2">
                         <label for="precio" class="block text-sm font-medium text-gray-700">
                             <i class="fas fa-dollar-sign text-chorotega-blue mr-1"></i>
@@ -116,7 +110,6 @@
                         <p class="text-gray-500 text-xs">Ingresa el precio en Lempiras, con hasta dos decimales.</p>
                     </div>
 
-                    {{-- Campo de estado --}}
                     <div class="space-y-2">
                         <label class="block text-sm font-medium text-gray-700">
                             <i class="fas fa-toggle-on text-chorotega-blue mr-1"></i>
@@ -150,7 +143,6 @@
                         @enderror
                     </div>
 
-                    {{-- Información adicional --}}
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
@@ -166,7 +158,6 @@
                         </div>
                     </div>
 
-                    {{-- Botones de acción --}}
                     <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
                         <button type="submit" 
                                 class="flex-1 bg-gradient-to-r from-chorotega-blue to-chorotega-blue-light text-white px-6 py-3 rounded-lg font-semibold hover:from-chorotega-blue-light hover:to-chorotega-blue transform hover:scale-105 transition duration-200 shadow-lg flex items-center justify-center">
@@ -183,8 +174,22 @@
                 </form>
             </div>
         </div>
+        @else
+        <div class="bg-white rounded-lg shadow-sm border border-red-200 overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-lock text-red-500 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <h2 class="text-xl font-bold text-red-800">Acceso Denegado</h2>
+                        <p class="text-gray-600 text-sm mt-1">No tienes los permisos necesarios para crear un nuevo tipo de visita.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcan
 
-        {{-- Tips y ayuda --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
                 <i class="fas fa-lightbulb text-chorotega-yellow mr-2"></i>

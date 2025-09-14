@@ -31,17 +31,20 @@
                                 </div>
                             </div>
                              
+                            {{-- ===== CAMBIO 1: Botón "Nuevo" protegido ===== --}}
+                            @can('crear tipo_visitas')
                             <a href="{{ route('tipo-visitas.create') }}" 
                                class="inline-flex items-center justify-center px-4 py-2 bg-chorotega-yellow text-chorotega-blue font-semibold rounded-lg hover:bg-yellow-400 transform hover:scale-105 transition duration-200 shadow-lg">
                                 <i class="fas fa-plus mr-2"></i>
                                 Nuevo Tipo de Visita
                             </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- Mensaje de éxito (SECCIÓN RESTAURADA) --}}
+            {{-- Mensaje de éxito --}}
             @if (session('success'))
             <div id="success-alert" class="bg-white rounded-lg shadow-sm border border-green-200 overflow-hidden">
                 <div class="bg-gradient-to-r from-green-500 to-green-600 p-4">
@@ -66,7 +69,6 @@
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
-                        {{-- Títulos de las columnas (SECCIÓN RESTAURADA) --}}
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -96,12 +98,13 @@
                             </tr>
                         </thead>
                         <tbody id="tipo-visitas-table-body" class="bg-white divide-y divide-gray-200">
+                            {{-- El contenido de las filas se carga via AJAX y desde el partial --}}
                             @include('tipo_visitas.partials.tipo_visitas_table_rows')
                         </tbody>
                     </table>
                 </div>
 
-                {{-- Empty state --}}
+                {{-- Empty state (cuando no hay resultados) --}}
                 <div id="empty-state" class="hidden text-center py-12">
                     <div class="max-w-md mx-auto">
                         <div class="mx-auto h-24 w-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
@@ -109,11 +112,15 @@
                         </div>
                         <h3 class="text-lg font-medium text-gray-900 mb-2">No se encontraron tipos de visita</h3>
                         <p class="text-gray-500 mb-6">Intenta con otros términos de búsqueda o crea un nuevo tipo de visita.</p>
+                        
+                        {{-- ===== CAMBIO 2: Botón "Crear" del empty state protegido ===== --}}
+                        @can('crear tipo_visitas')
                         <a href="{{ route('tipo-visitas.create') }}" 
                            class="inline-flex items-center px-4 py-2 bg-chorotega-blue text-white rounded-lg hover:bg-chorotega-blue-light transition duration-200">
                             <i class="fas fa-plus mr-2"></i>
                             Crear Primer Tipo de Visita
                         </a>
+                        @endcan
                     </div>
                 </div>
             </div>

@@ -19,8 +19,16 @@
             @endif
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            {{-- El permiso 'ver' usualmente se deja abierto o se usa 'ver tipo_visitas' si es necesario --}}
             <a href="{{ route('tipo-visitas.show', $tipoVisita) }}" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-200 mr-2">Ver</a>
+
+            {{-- El enlace 'Editar' solo se muestra si el usuario tiene el permiso --}}
+            @can('editar tipo_visitas')
             <a href="{{ route('tipo-visitas.edit', $tipoVisita) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200 mr-2">Editar</a>
+            @endcan
+
+            {{-- El formulario 'Eliminar' solo se muestra si el usuario tiene el permiso --}}
+            @can('eliminar tipo_visitas')
             <form action="{{ route('tipo-visitas.destroy', $tipoVisita) }}" method="POST" class="inline delete-form">
                 @csrf
                 @method('DELETE')
@@ -28,6 +36,7 @@
                     Eliminar
                 </button>
             </form>
+            @endcan
         </td>
     </tr>
 @endforeach

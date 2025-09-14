@@ -16,9 +16,6 @@ class Visita extends Model
         'numero_identidad',
     ];
 
-    /**
-     * Define the inverse relationship with the TipoVisita model.
-     */
     public function tipoVisita()
     {
         return $this->belongsTo(TipoVisita::class);
