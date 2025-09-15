@@ -67,7 +67,7 @@
                 
                 <!-- Footer -->
                 <footer class="text-xs lg:text-sm text-center text-gray-500 border-t pt-4">
-                    <p>&copy; <span id="year"></span> Cooperativa Chorotega. Todos los derechos reservados. devDahen</p>
+                    <p>&copy; <span id="year"></span> Club Turístico Chorotega. Innovación y Productividad. devDahen</p>
                 </footer>
             </main>
         </div>
